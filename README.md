@@ -27,12 +27,14 @@ __Used tools:__
 
 __Bot:__
 Config file:
+
+```
 {
     "number_of_users": 20,
     "max_posts_per_user": 30,
     "max_likes_per_user": 100,
     "max_dislikes_per_user": 2
 }
+```
 
-
-REST examples in test.rest
+## REST examples in test.rest
