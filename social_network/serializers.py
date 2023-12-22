@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from social_network.models import Post, Like, Dislike, User, UserActivity
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, user_logged_in
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -75,15 +75,29 @@ class LoginSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         username = attrs.get('username')
         password = attrs.get('password')
+        # username = attrs.get('email')
 
         user = authenticate(username=username, password=password)
+        # user = User.objects.get(username=username, password=password)
         if not user:
             raise serializers.ValidationError('Invalid credentials')
-
+        
         refresh = RefreshToken.for_user(user)
+        user_logged_in.send(sender=user.__class__, request=self.context.get('request'), user=user)
         attrs['refresh'] = str(refresh)
         attrs['access'] = str(refresh.access_token)
+        attrs['last_login'] = user.last_login
         return attrs
+    # def post(self, request, *args, **kwargs):
+    #     username = request.data.get('username')
+    #     password = request.data.get('password')
+
+    #     user = authenticate(username=username, password=password)
+    #     if user is not None:
+    #         login(request, user)  # Perform login
+    #         return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
+    #     else:
+    #         return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class UserSerializer(serializers.ModelSerializer):

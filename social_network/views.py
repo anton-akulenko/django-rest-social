@@ -7,7 +7,8 @@ from rest_framework import generics, permissions, mixins, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+ 
+from django.contrib.auth import authenticate, login, user_logged_in
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -102,6 +103,8 @@ class LoginView(generics.GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
+        # login(request, data.user)
+
         return Response(data, status=status.HTTP_200_OK)
 
 # class LoginView(TokenObtainPairView):

@@ -12,6 +12,7 @@ class UserActivityMiddleware:
             try:
                 activity = UserActivity.objects.get(user=request.user)
                 activity.update_last_request()
+                activity.update_last_login()
             except UserActivity.DoesNotExist:
                 UserActivity.objects.create(user=request.user)
 
