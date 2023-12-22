@@ -27,19 +27,6 @@ class PostList(generics.ListCreateAPIView):
         serializer.save(author=self.request.user)
 
 
-class PostRetrieveDestroy(generics.RetrieveDestroyAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-    def delete(self, request, *args, **kwargs):
-        post = Post.objects.filter(pk=kwargs['pk'], author=self.request.user)
-        if post.exists():
-            return self.destroy(request, *args, **kwargs)
-        else:
-            raise ValidationError('This is not your post to delete!')
-
-
 class LikeCreate(generics.CreateAPIView, mixins.DestroyModelMixin):
     serializer_class = LikeSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -103,25 +90,7 @@ class LoginView(generics.GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
-        # login(request, data.user)
-
         return Response(data, status=status.HTTP_200_OK)
-
-# class LoginView(TokenObtainPairView):
-#     serializer_class = TokenObtainPairSerializer
-
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.get_serializer(data=request.data)
-#         try:
-#             serializer.is_valid(raise_exception=True)
-#             user = serializer.user
-#             refresh = RefreshToken.for_user(user)
-#             return Response({
-#                 'refresh': str(refresh),
-#                 'access': str(refresh.access_token),
-#             }, status=status.HTTP_200_OK)
-#         except TokenError as e:
-#             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class ProfileUserView(generics.GenericAPIView):

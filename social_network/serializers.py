@@ -67,7 +67,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=150)
     password = serializers.CharField(write_only=True)
-    # last_login = serializers.DateTimeField(source='user.last_login', format="%Y-%m-%d %H:%M:%S")
+
     class Meta:
         model = User
         fields = ['username', 'password']
@@ -75,10 +75,10 @@ class LoginSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         username = attrs.get('username')
         password = attrs.get('password')
-        # username = attrs.get('email')
+
 
         user = authenticate(username=username, password=password)
-        # user = User.objects.get(username=username, password=password)
+
         if not user:
             raise serializers.ValidationError('Invalid credentials')
         
@@ -88,17 +88,6 @@ class LoginSerializer(serializers.ModelSerializer):
         attrs['access'] = str(refresh.access_token)
         attrs['last_login'] = user.last_login
         return attrs
-    # def post(self, request, *args, **kwargs):
-    #     username = request.data.get('username')
-    #     password = request.data.get('password')
-
-    #     user = authenticate(username=username, password=password)
-    #     if user is not None:
-    #         login(request, user)  # Perform login
-    #         return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
-    #     else:
-    #         return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -111,7 +100,7 @@ class UserActivitySerializer(serializers.ModelSerializer):
     email = serializers.CharField(source='user.email', read_only=True)
     last_login = serializers.DateTimeField(source='user.last_login', format="%Y-%m-%d %H:%M:%S")
     last_request = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
-
+    date_joined = serializers.CharField(source='user.date_joined', read_only=True)
     class Meta:
         model = UserActivity
-        fields = ['username', 'email', 'last_login', 'last_request']
+        fields = ['username', 'email', 'last_login', 'last_request', 'date_joined']

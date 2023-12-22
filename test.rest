@@ -1,33 +1,9 @@
-POST http://127.0.0.1:8000/signup 
-Content-Type: application/json
-
-{ "username": "adam", "password": "Pass1234!", "email": "adam@mail.com" }
-
 ### sign up
 
 POST http://127.0.0.1:8000/api/signup/ 
 Content-Type: application/json
 
 { "username": "Anttt3", "password": "W@string1234", "password2": "W@string1234", "email": "user3@example.com" }
-
-
-######## get posts
-curl -X 'GET' \
-  'http://127.0.0.1:8000/api/posts/' \
-  -H 'accept: application/json' \
-
-#####post success #######
-
-curl -X 'POST' \
-  'http://127.0.0.1:8000/api/posts/' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMTk2NTUzLCJpYXQiOjE3MDMxOTI5NTMsImp0aSI6IjVmYWZjN2Y3OWE5MTQ0ZmZhMGNiOWUxNzQ3ZTlhZjVhIiwidXNlcl9pZCI6NH0.rcJFt9rGDIK0FgCkzzgHFzKNaF2pOP49mdAKOtFdt-U' \
-  -d '{
-  "title": "string",
-  "text": "string"
-}'
-
 
 ### login 
 
@@ -36,60 +12,56 @@ Content-Type: application/json
 
 { "username": "user3@example.com", "password": "W@string1234" }
 
+
+### UPDATE token below
+
+token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMjQ5NTE4LCJpYXQiOjE3MDMyNDU5MTgsImp0aSI6IjkwNDNmNGM4OTkxYzRhNzRhNWNkNTgyMWIxYTEzNWRjIiwidXNlcl9pZCI6MTAxfQ.P0-wV5G0uic-5zniBRsA62D1g387kRN-pAuabzQL1wg
+
+#####post create #######
+
+curl -X 'POST' \
+  'http://127.0.0.1:8000/api/posts/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMjQ5NTE4LCJpYXQiOjE3MDMyNDU5MTgsImp0aSI6IjkwNDNmNGM4OTkxYzRhNzRhNWNkNTgyMWIxYTEzNWRjIiwidXNlcl9pZCI6MTAxfQ.P0-wV5G0uic-5zniBRsA62D1g387kRN-pAuabzQL1wg'
+  -d '{
+  "title": "string",
+  "text": "string"
+}'
+
+######## get all posts
+curl -X 'GET' \
+  'http://127.0.0.1:8000/api/posts/' \
+  -H 'accept: application/json' \
+
+
 ### analytics
 
-GET http://127.0.0.1:8000/api/analytics/?date_from=2023-12-21&date_to=2023-12-22
+GET http://127.0.0.1:8000/api/analytics/?date_from=2023-12-19&date_to=2023-12-22
 Content-Type: application/json
 
 ### like
-POST http://127.0.0.1:8000/api/posts/12/like
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMjM3MzM0LCJpYXQiOjE3MDMyMzM3MzQsImp0aSI6IjllN2YyYTg5MGZiODRiYTU5ODcxNTgyNDEzM2ZhOWNhIiwidXNlcl9pZCI6NDB9.ATcOrzfk0SHukKd7c7EoLgtI49bPfJZTclgTz1a2P2U
-###
-POST http://127.0.0.1:8000/api/posts/ 
+POST http://127.0.0.1:8000/api/posts/13/like
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMjQ5NTE4LCJpYXQiOjE3MDMyNDU5MTgsImp0aSI6IjkwNDNmNGM4OTkxYzRhNzRhNWNkNTgyMWIxYTEzNWRjIiwidXNlcl9pZCI6MTAxfQ.P0-wV5G0uic-5zniBRsA62D1g387kRN-pAuabzQL1wg
+
+### dislike
+POST http://127.0.0.1:8000/api/posts/13/dislike
 Content-Type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMTk2NTUzLCJpYXQiOjE3MDMxOTI5NTMsImp0aSI6IjVmYWZjN2Y3OWE5MTQ0ZmZhMGNiOWUxNzQ3ZTlhZjVhIiwidXNlcl9pZCI6NH0.rcJFt9rGDIK0FgCkzzgHFzKNaF2pOP49mdAKOtFdt-U
-{ "title": "important post", "text": "Some texttt 234" }
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMjQ5NTE4LCJpYXQiOjE3MDMyNDU5MTgsImp0aSI6IjkwNDNmNGM4OTkxYzRhNzRhNWNkNTgyMWIxYTEzNWRjIiwidXNlcl9pZCI6MTAxfQ.P0-wV5G0uic-5zniBRsA62D1g387kRN-pAuabzQL1wg
+
 ###
 
 GET http://127.0.0.1:8000/test_token 
 Content-Type: application/json
 Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMTkxMjI2LCJpYXQiOjE3MDMxODc2MjYsImp0aSI6IjkyNzk4ZDk3NjExMzRiMzlhMDQzYWE4YWQ2ODk1NDQ0IiwidXNlcl9pZCI6NH0.4gmCIoY1JxReblMLZFzFXVsi2JhSsefoAXO47FmkzQg
 
-###
+### profile info
 
 curl -X GET \
   http://127.0.0.1:8000/api/profile/ \
-  -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMTk2NTUzLCJpYXQiOjE3MDMxOTI5NTMsImp0aSI6IjVmYWZjN2Y3OWE5MTQ0ZmZhMGNiOWUxNzQ3ZTlhZjVhIiwidXNlcl9pZCI6NH0.rcJFt9rGDIK0FgCkzzgHFzKNaF2pOP49mdAKOtFdt-U
+  -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMjQ5NTE4LCJpYXQiOjE3MDMyNDU5MTgsImp0aSI6IjkwNDNmNGM4OTkxYzRhNzRhNWNkNTgyMWIxYTEzNWRjIiwidXNlcl9pZCI6MTAxfQ.P0-wV5G0uic-5zniBRsA62D1g387kRN-pAuabzQL1wg'
 
-###
-
-GET http://127.0.0.1:8000/api/profile/
-Content-Type: application/json
-Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMTk2NTUzLCJpYXQiOjE3MDMxOTI5NTMsImp0aSI6IjVmYWZjN2Y3OWE5MTQ0ZmZhMGNiOWUxNzQ3ZTlhZjVhIiwidXNlcl9pZCI6NH0.rcJFt9rGDIK0FgCkzzgHFzKNaF2pOP49mdAKOtFdt-U
-
-###
-curl -X 'POST' \
-  'http://127.0.0.1:8000/token/' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "email": "user@example.com",
-  "password": "W@string1234"
-}'
-
-###
+### activity user
 curl -X 'GET' \
-  'http://localhost:8000/api/user-activity/Anttt' \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMTkzMjAxLCJpYXQiOjE3MDMxODk2MDEsImp0aSI6IjFiNjkxYTAwMjIyNTQ3ZDc4Yzc4NjE4MTdhNjBmZGRjIiwidXNlcl9pZCI6Nn0.4JWqMyJhTQaifKrNyurDLDp0DIfmpmvm523XmRswQZk"  \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "email": "user@example.com",
-  "password": "W@string1234"
-}'
-
-###
-
-curl -X GET \
-    http://localhost:8000/api/user-activity/user1@example.com W@string1234/
-    -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMTkzMjAxLCJpYXQiOjE3MDMxODk2MDEsImp0aSI6IjFiNjkxYTAwMjIyNTQ3ZDc4Yzc4NjE4MTdhNjBmZGRjIiwidXNlcl9pZCI6Nn0.4JWqMyJhTQaifKrNyurDLDp0DIfmpmvm523XmRswQZk" \
-  
+  'http://localhost:8000/api/user-activity/Anttt3/' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzMjUwMTUxLCJpYXQiOjE3MDMyNDY1NTEsImp0aSI6Ijc3ZjdkYTk2NTY1ZTRiODM4YzM4OTEzODUxYmI3MGIzIiwidXNlcl9pZCI6MTAxfQ.P9YEkPsN909Id1yMSC8pmuss7uUzIIYZM_GF7qww2iA'
