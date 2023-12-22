@@ -1,5 +1,6 @@
 {
     "number_of_users": 1,
-    "max_posts_per_user": 3,
-    "max_likes_per_user": 5
+    "max_posts_per_user": 1,
+    "max_likes_per_user": 15,
+    "max_dislikes_per_user": 2
 }

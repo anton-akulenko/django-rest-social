@@ -4,14 +4,22 @@ import random
 from faker import Faker
 from datetime import datetime
 
+
+# Load configuration from file
+with open('config.json') as config_file:
+    config = json.load(config_file)
+
+API_BASE_URL = 'http://127.0.0.1:8000'  # Replace with your API base URL
+
 fake = Faker()
 
 class AutomatedBot:
-    def __init__(self, base_url, number_of_users, max_posts_per_user, max_likes_per_user):
+    def __init__(self, base_url, number_of_users, max_posts_per_user, max_likes_per_user, max_dislikes_per_user=0):
         self.base_url = base_url
         self.number_of_users = number_of_users
         self.max_posts_per_user = max_posts_per_user
         self.max_likes_per_user = max_likes_per_user
+        self.max_dislikes_per_user = max_dislikes_per_user
         self.tokens = {}
 
     def get_token(self, username, password):
@@ -72,22 +80,35 @@ class AutomatedBot:
                 response = requests.post(like_post_url, headers=headers)
                 # Simulate liking posts - handle response and errors if necessary
 
+    def dislike_posts(self, users):
+        for user in users:
+            headers = {'Authorization': f'Bearer {user["token"]}'}
+            num_dislikes = random.randint(1, self.max_dislikes_per_user)
+            for _ in range(num_dislikes):
+                # post_id = random.randint(1, total_number_of_posts)  # Replace with actual count of posts 
+                post_id = random.randint(1, 15)  # Replace with actual count of posts 
+
+                dislike_post_url = f"{self.base_url}/api/posts/{post_id}/dislike"  # Replace with like post endpoint
+                response = requests.post(dislike_post_url, headers=headers)
+                # Simulate liking posts - handle response and errors if necessary
+
     def simulate_activity(self):
-        # Step 1: Signup users and obtain tokens
+
         users = self.signup_users()
 
-        # Step 2: Create posts for users using obtained tokens
         self.create_posts(users)
 
-        # Step 3: Like posts randomly using obtained tokens
         self.like_posts(users)
+        
+        self.dislike_posts(users)
 
 if __name__ == "__main__":
     # Configuration parameters
-    base_url = 'http://localhost:8000'  # Replace with your base URL
-    number_of_users = 100
-    max_posts_per_user = 3
-    max_likes_per_user = 20
+    base_url = API_BASE_URL
+    number_of_users = config['number_of_users']
+    max_posts_per_user = config['max_posts_per_user']
+    max_likes_per_user = config['max_likes_per_user']
+    max_dislikes_per_user = config['max_dislikes_per_user']
 
-    bot = AutomatedBot(base_url, number_of_users, max_posts_per_user, max_likes_per_user)
+    bot = AutomatedBot(base_url, number_of_users, max_posts_per_user, max_likes_per_user, max_dislikes_per_user)
     bot.simulate_activity()
