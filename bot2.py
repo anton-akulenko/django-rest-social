@@ -85,9 +85,9 @@ class AutomatedBot:
 if __name__ == "__main__":
     # Configuration parameters
     base_url = 'http://localhost:8000'  # Replace with your base URL
-    number_of_users = 1
-    max_posts_per_user = 1
-    max_likes_per_user = 100
+    number_of_users = 100
+    max_posts_per_user = 3
+    max_likes_per_user = 20
 
     bot = AutomatedBot(base_url, number_of_users, max_posts_per_user, max_likes_per_user)
     bot.simulate_activity()

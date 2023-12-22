@@ -6,7 +6,7 @@ from django.utils import timezone
 class User(AbstractUser):
     email = models.EmailField(unique=True)
     username = models.CharField(unique=True, max_length=50)
-    last_login_date = models.DateTimeField(blank=True, null=True)
+    # last_login_date = models.DateTimeField(blank=True, null=True)
 
     def update_last_login(self):
         self.last_login_date = timezone.now()
@@ -59,6 +59,11 @@ class Dislike(models.Model):
 class UserActivity(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     last_request = models.DateTimeField(null=True, blank=True)
+    last_login_date = models.DateTimeField(blank=True, null=True)
+
+    def update_last_login(self):
+        self.last_login_date = timezone.now()
+        self.save()
 
     def update_last_request(self):
         self.last_request = timezone.now()
