@@ -27,7 +27,6 @@ class LikeSerializer(serializers.ModelSerializer):
         model = Like
         fields = ['id', 'liker', 'created_at']
 
-
 class DislikeSerializer(serializers.ModelSerializer):
     disliker = serializers.ReadOnlyField(source='disliker.email')
 

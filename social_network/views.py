@@ -7,7 +7,10 @@ from rest_framework import generics, permissions, mixins, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
- 
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
+from django.utils.decorators import method_decorator
 from django.contrib.auth import authenticate, login, user_logged_in
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
@@ -106,6 +109,9 @@ class ProfileUserView(generics.GenericAPIView):
 class LikesAnalyticsAPIView(generics.GenericAPIView):
     # permission_classes = [permissions.IsAuthenticated]
     serializer_class = LikeSerializer
+    @swagger_auto_schema(manual_parameters=[
+        openapi.Parameter('date_from', openapi.IN_QUERY, description="Start date (YYYY-MM-DD)", type=openapi.TYPE_STRING),
+        openapi.Parameter('date_to', openapi.IN_QUERY, description="End date (YYYY-MM-DD)", type=openapi.TYPE_STRING),])
     def get(self, request):
         date_from = request.query_params.get('date_from')
         date_to = request.query_params.get('date_to')
