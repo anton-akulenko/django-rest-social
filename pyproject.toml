@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "django-rest-social"
+version = "0.1.0"
+description = ""
+authors = ["anton-akulenko <anton.htl@gmail.com>"]
+readme = "README.md"
+packages = [{include = "django_rest_social"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^5.0"
+djangorestframework-simplejwt = "^5.3.1"
+drf-yasg = "^1.21.7"
+djangorestframework = "^3.14.0"
+faker = "^21.0.0"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
